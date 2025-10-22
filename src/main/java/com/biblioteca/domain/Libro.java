@@ -42,6 +42,6 @@ public class Libro implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "id_categoria")
-    private Categoria categoria;
+    private Genero categoria;
 }
 

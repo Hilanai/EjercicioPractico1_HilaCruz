@@ -1,8 +1,7 @@
-package com.biblioteca;
+package com.biblioteca.controller;
 
 import com.biblioteca.domain.Libro;
-import com.biblioteca.services.CategoriaService;
-import com.biblioteca.services.LibroService;
+import com.biblioteca.services.GeneroService;
 import jakarta.validation.Valid;
 import java.util.Locale;
 import java.util.Optional;
@@ -23,10 +22,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class LibroController {
 
     @Autowired
-    private LibroService libroService;
+    private GeneroService libroService;
 
     @Autowired
-    private CategoriaService categoriaService;
+    private GeneroService generoService;
 
     @Autowired
     private MessageSource messageSource;
@@ -36,8 +35,8 @@ public class LibroController {
         var libros = libroService.getLibros(false);
         model.addAttribute("libros", libros);
         model.addAttribute("totalLibros", libros.size());
-        var categorias = categoriaService.getCategorias(true);
-        model.addAttribute("categorias", categorias);
+        var generos = generoService.getLibros(true);
+        model.addAttribute("generos", generos);
         return "/libro/listado";
     }
 
@@ -56,13 +55,13 @@ public class LibroController {
             libroService.delete(idLibro);
         } catch (IllegalArgumentException e) {
             titulo = "error";
-            detalle = "categoria.error01";
+            detalle = "libro.error01";
         } catch (IllegalStateException e) {
             titulo = "error";
-            detalle = "categoria.error02";
+            detalle = "libro.error02";
         } catch (Exception e) {
             titulo = "error";
-            detalle = "categoria.error03";
+            detalle = "libro.error03";
         }
         redirectAttributes.addFlashAttribute(titulo, messageSource.getMessage(detalle, null, Locale.getDefault()));
         return "redirect:/libro/listado";
@@ -72,4 +71,12 @@ public class LibroController {
     public String modificar(@PathVariable("idLibro") Integer idLibro, Model model, RedirectAttributes redirectAttributes) {
         Optional<Libro> libroOpt = libroService.getLibro(idLibro);
         if (libroOpt.isEmpty()) {
-            redirectAttributes.addFlashAttribute("error
+            redirectAttributes.addFlashAttribute("error", messageSource.getMessage("libro.error01", null, Locale.getDefault()));
+            return "redirect:/libro/listado";
+        }
+        model.addAttribute("libro", libroOpt.get());
+        var generos = generoService.getLibros(true);
+        model.addAttribute("generos", generos);
+        return "/libro/modifica";
+    }
+}

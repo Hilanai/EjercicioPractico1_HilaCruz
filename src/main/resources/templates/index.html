@@ -1,14 +1,34 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
 <html>
-    <head>
-        <title>Biblioteca</title>
-        <meta charset="UTF-8">
-    </head>
+    <head th:replace="~{general/fragmentos :: head}"/>
     <body>
-        <div></div>
+        <header th:replace="~{general/fragmentos :: header}"/>
+
+        <section th:replace="~{biblioteca/fragmentos :: filtros}"/>
+        <section th:replace="~{biblioteca/fragmentos :: libros}"/>
+
+        <section>
+            <h2>Video destacado: Sia - Chandelier</h2>
+            <div style="text-align:center;">
+                <iframe width="560" height="315"
+                        src="https://www.youtube.com/embed/2vjPBrBU-TM"
+                        title="Sia - Chandelier"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section>
+            <h2>Imagen destacada: Perro</h2>
+            <div style="text-align:center;">
+                <img src="https://www.elmueble.com/mascotas/golden-retriever-perro-mas-tierno-e-ideal-para-vivir-ninos-como-es-su-caracter-principales-cuidados-y-mas_55839"
+                     alt="Perro tierno"
+                     style="max-width: 100%; height: auto;" />
+            </div>
+        </section>
+
+        <footer th:replace="~{general/fragmentos :: footer}"/>
     </body>
 </html>
+
